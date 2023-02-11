@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import pl.patrykpora.database.entities.PlayerEntity;
 import pl.patrykpora.repository.PlayerRepository;
+import pl.patrykpora.service.QuizDataService;
 
 import java.util.List;
 
@@ -16,14 +17,18 @@ public class StartUp implements CommandLineRunner {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private QuizDataService quizDataService;
+
     @Override
     public void run(String... args) throws Exception {
         log.info("startup action processing .... ");
         PlayerEntity playerEntity = new PlayerEntity("Patryk");
         log.info("created player : " + playerEntity);
         playerRepository.save(playerEntity);
-
         showPlayersLoadedFormDataBase();
+        quizDataService.getCategoriesForQuiz();
+        quizDataService.getQuizQuestions();
     }
 
     private void showPlayersLoadedFormDataBase() {
