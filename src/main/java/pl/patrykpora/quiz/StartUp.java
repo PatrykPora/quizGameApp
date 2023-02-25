@@ -26,6 +26,9 @@ public class StartUp implements CommandLineRunner {
         PlayerEntity playerEntity = new PlayerEntity("Patryk");
         log.info("created player : " + playerEntity);
         playerRepository.save(playerEntity);
+        PlayerEntity playerEntityTwo = new PlayerEntity("Anna");
+        log.info("created player : " + playerEntity);
+        playerRepository.save(playerEntityTwo);
         showPlayersLoadedFormDataBase();
         quizDataService.getCategoriesForQuiz();
         quizDataService.getQuizQuestions();

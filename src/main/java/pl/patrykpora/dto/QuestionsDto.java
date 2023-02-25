@@ -1,5 +1,6 @@
 package pl.patrykpora.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -10,7 +11,8 @@ import java.util.List;
 @Getter
 public class QuestionsDto {
 
-    private int response_code;
+    @JsonProperty("response_code")
+    private int responseCode;
     private List<QuestionDto> results;
 
     @NoArgsConstructor
