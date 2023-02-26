@@ -19,7 +19,7 @@ public class CategoriesDto {
     @Getter
     @ToString
     public static class CategoryDto {
-        private int id;
+        private int categoryId;
         private String name;
     }
 

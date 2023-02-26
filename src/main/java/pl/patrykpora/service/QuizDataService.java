@@ -8,16 +8,18 @@ import pl.patrykpora.dto.CategoriesDto;
 import pl.patrykpora.dto.QuestionsDto;
 
 import java.net.URI;
+import java.util.List;
 
 @Service
 @Log
 public class QuizDataService {
 
 
-    public void getCategoriesForQuiz(){
+    public List<CategoriesDto.CategoryDto> getCategoriesForQuiz(){
         RestTemplate restTemplate = new RestTemplate();
         CategoriesDto result = restTemplate.getForObject("https://opentdb.com/api_category.php", CategoriesDto.class);
         log.info("retrieved categories : " + result.getCategoryDtos());
+        return result.getCategoryDtos();
     }
 
     public void getQuizQuestions() {
