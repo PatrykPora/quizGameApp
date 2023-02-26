@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import pl.patrykpora.database.entities.PlayerEntity;
+import pl.patrykpora.frontController.frontElements.DifficultLevel;
+import pl.patrykpora.frontController.frontElements.GameOptions;
 import pl.patrykpora.repository.PlayerRepository;
 import pl.patrykpora.service.QuizDataService;
 
@@ -31,7 +33,12 @@ public class StartUp implements CommandLineRunner {
         playerRepository.save(playerEntityTwo);
         showPlayersLoadedFormDataBase();
         quizDataService.getCategoriesForQuiz();
-        quizDataService.getQuizQuestions();
+
+        GameOptions startOptions = new GameOptions();
+        startOptions.setCategoryId(20);
+        startOptions.setDifficultLevel(DifficultLevel.easy);
+        startOptions.setNumberOfQuestions(10);
+        quizDataService.getQuizQuestions(startOptions);
     }
 
     private void showPlayersLoadedFormDataBase() {

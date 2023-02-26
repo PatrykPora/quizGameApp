@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.patrykpora.dto.CategoriesDto;
 import pl.patrykpora.dto.QuestionsDto;
+import pl.patrykpora.frontController.frontElements.GameOptions;
 
 import java.net.URI;
 import java.util.List;
@@ -22,12 +23,12 @@ public class QuizDataService {
         return result.getCategoryDtos();
     }
 
-    public void getQuizQuestions() {
+    public void getQuizQuestions(GameOptions gameOptions) {
         RestTemplate restTemplate = new RestTemplate();
         URI uri = UriComponentsBuilder.fromHttpUrl("https://opentdb.com/api.php")
-                .queryParam("amount", 5)
-                .queryParam("category", 22)
-                .queryParam("difficulty", "easy")
+                .queryParam("amount", gameOptions.getNumberOfQuestions())
+                .queryParam("category", gameOptions.getCategoryId())
+                .queryParam("difficulty", gameOptions.getDifficultLevel())
                 .build().toUri();
         log.info("build uri for question: " + uri);
         QuestionsDto questions = restTemplate.getForObject(uri, QuestionsDto.class);
