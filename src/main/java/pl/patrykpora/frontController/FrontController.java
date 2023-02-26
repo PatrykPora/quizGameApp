@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.patrykpora.frontController.frontElements.GameOptions;
+import pl.patrykpora.frontController.frontElements.UserAnswer;
+import pl.patrykpora.service.GameInProgress;
 import pl.patrykpora.service.QuizDataService;
 
 @Log
@@ -18,6 +20,9 @@ public class FrontController {
 
     @Autowired
     private QuizDataService quizDataService;
+
+    @Autowired
+    private GameInProgress gameInProgress;
 
     @GetMapping("/")
     public String startWebsite(Model model){
@@ -34,6 +39,17 @@ public class FrontController {
     @PostMapping("/select")
     public String setGameOptions(Model model, @ModelAttribute GameOptions gameOptions){
         log.info("user choose game options: " + gameOptions);
-        return "index";
+        gameInProgress.init(gameOptions);
+        return "redirect:game";
+    }
+
+    @GetMapping("/game")
+    public String game(Model model){
+        model.addAttribute("userAnswer", new UserAnswer());
+        model.addAttribute("currentQuestionNumber", gameInProgress.getCurrentQuestionNumber());
+        model.addAttribute("totalQuestionNumber", gameInProgress.getTotalNumberOfQuestions());
+        model.addAttribute("currentQuestion", gameInProgress.getCurrentQuestionText());
+        model.addAttribute("currentQuestionAnswers", gameInProgress.getAllPossibleAnswersForCurrentQuestions());
+        return "game";
     }
 }

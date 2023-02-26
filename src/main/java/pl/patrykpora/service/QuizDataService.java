@@ -23,7 +23,7 @@ public class QuizDataService {
         return result.getCategoryDtos();
     }
 
-    public void getQuizQuestions(GameOptions gameOptions) {
+    public List<QuestionsDto.QuestionDto> getQuizQuestions(GameOptions gameOptions) {
         RestTemplate restTemplate = new RestTemplate();
         URI uri = UriComponentsBuilder.fromHttpUrl("https://opentdb.com/api.php")
                 .queryParam("amount", gameOptions.getNumberOfQuestions())
@@ -33,6 +33,7 @@ public class QuizDataService {
         log.info("build uri for question: " + uri);
         QuestionsDto questions = restTemplate.getForObject(uri, QuestionsDto.class);
         log.info("retrieved questions : " + questions.getResults());
+        return questions.getResults();
     }
 
 }

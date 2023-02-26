@@ -25,7 +25,7 @@ public class GameInProgress {
         this.gameOptions = gameOptions;
         this.currentQuestionIndex = 0;
         this.points = 0;
-        quizDataService.getQuizQuestions(gameOptions);
+        this.questions = quizDataService.getQuizQuestions(gameOptions);
     }
 
     public int getCurrentQuestionNumber() {
